@@ -41,14 +41,29 @@ header{max-width:960px;margin:0 auto 18px;display:flex;align-items:center;justif
 }
 #search::placeholder{color:var(--ink2)}
 #search:focus{border-color:var(--accent)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
-.tag{
+
+/* 一级分类 */
+.cats{display:flex;gap:10px;margin:16px 0 10px}
+.cat{
+  flex:1;text-align:center;padding:12px 8px;border-radius:16px;cursor:pointer;
+  background:var(--card);border:1.5px solid var(--line);color:var(--ink2);
+  font-size:14.5px;font-weight:700;transition:.2s;user-select:none;box-shadow:var(--shadow);
+}
+.cat:hover{border-color:var(--accent2)}
+.cat.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cat small{display:block;font-size:10.5px;font-weight:400;opacity:.75;margin-top:2px}
+
+/* 二级分类 */
+.subs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;min-height:34px}
+.sub-tag{
   padding:6px 14px;border-radius:999px;font-size:13px;cursor:pointer;
   background:var(--card);color:var(--ink2);border:1.5px solid var(--line);
   transition:.2s;user-select:none;
 }
-.tag:hover{border-color:var(--accent2)}
-.tag.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sub-tag:hover{border-color:var(--accent2)}
+.sub-tag.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sub-tag.hide{display:none}
+
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .card{
   background:var(--card);border-radius:18px;padding:16px 16px 14px;
@@ -61,9 +76,7 @@ header{max-width:960px;margin:0 auto 18px;display:flex;align-items:center;justif
 .card .note{font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:10px;min-height:18px}
 .card .foot{display:flex;flex-wrap:wrap;gap:5px}
 .chip{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--bg2);color:var(--ink2)}
-.chip.hot{background:var(--accent);color:#fff}
-.chip.free{background:#b7f0d4;color:#2c7a55}
-.chip.paid{background:#ffe0a3;color:#8a6a1e}
+.chip.sign{background:var(--accent);color:#fff}
 .empty{text-align:center;color:var(--ink2);padding:50px 0;font-size:14px}
 footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--ink2);letter-spacing:1px;line-height:1.9}
 </style>
@@ -77,7 +90,10 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 <div class="wrap">
   <div class="sub">都是自己在用的中转站，点开就是官网，注册能用。<br>来源靠谱，不掺广告。</div>
   <input id="search" placeholder="搜一搜，爪爪里有什么…">
-  <div class="tags" id="tags"></div>
+
+  <div class="cats" id="cats"></div>
+  <div class="subs" id="subs"></div>
+
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty" style="display:none">这里空空的，什么都没有喵。</div>
 </div>
@@ -87,45 +103,63 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 <script src="./data.js"></script>
 <script>
 const DATA = (typeof PAW_DATA !== "undefined" ? PAW_DATA : []);
-let curTag = "全部";
+const CATS = [
+  {key:"付费", desc:"要花钱的"},
+  {key:"公益", desc:"白给的"}
+];
+const SUBS = ["全部","可签到","不可签到"];
 
-const $grid=document.getElementById("grid"),$tags=document.getElementById("tags"),
-      $empty=document.getElementById("empty"),$search=document.getElementById("search");
+let curCat = "付费";
+let curSub = "全部";
 
-function allTags(){
-  const s=new Set();
-  DATA.forEach(d=>(d.tags||[]).forEach(t=>s.add(t)));
-  return ["全部",...s];
-}
-function renderTags(){
-  $tags.innerHTML="";
-  allTags().forEach(t=>{
+const $grid=document.getElementById("grid"),$cats=document.getElementById("cats"),
+      $subs=document.getElementById("subs"),$empty=document.getElementById("empty"),
+      $search=document.getElementById("search");
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"""}[c]));}
+
+function renderCats(){
+  $cats.innerHTML="";
+  CATS.forEach(c=>{
+    const n=DATA.filter(d=>d.cat===c.key).length;
     const el=document.createElement("div");
-    el.className="tag"+(t===curTag?" on":"");
-    el.textContent=t;
-    el.onclick=()=>{curTag=t;renderTags();render();};
-    $tags.appendChild(el);
+    el.className="cat"+(c.key===curCat?" on":"");
+    el.innerHTML=`${esc(c.key)}站<small>${esc(c.desc)} · ${n}</small>`;
+    el.onclick=()=>{curCat=c.key;curSub="全部";renderCats();renderSubs();render();};
+    $cats.appendChild(el);
   });
 }
-function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"""}[c]));}
+function renderSubs(){
+  $subs.innerHTML="";
+  if(curCat!=="付费"){ $subs.style.display="none"; return; }
+  $subs.style.display="flex";
+  SUBS.forEach(s=>{
+    const el=document.createElement("div");
+    el.className="sub-tag"+(s===curSub?" on":"");
+    el.textContent=s;
+    el.onclick=()=>{curSub=s;renderSubs();render();};
+    $subs.appendChild(el);
+  });
+}
 function render(){
   const kw=$search.value.trim().toLowerCase();
   const list=DATA.filter(d=>{
-    const tagOk=curTag==="全部"||(d.tags||[]).includes(curTag);
-    const text=(d.name+(d.note||"")+(d.tags||[]).join("")).toLowerCase();
-    return tagOk&&(!kw||text.includes(kw));
+    if((d.cat||"")!==curCat) return false;
+    if(curCat==="付费" && curSub!=="全部" && (d.sign||"")!==curSub) return false;
+    const text=(d.name+(d.note||"")+(d.cat||"")+(d.sign||"")).toLowerCase();
+    return !kw||text.includes(kw);
   });
   $grid.innerHTML="";
   $empty.style.display=list.length?"none":"block";
   list.forEach(d=>{
     const a=document.createElement("a");
     a.className="card";
-    a.href=d.url;                       // 整张卡片就是超链接
-    a.target="_blank";
-    a.rel="noopener noreferrer";
-    const chips=(d.tags||[]).map(t=>`<span class="chip">${esc(t)}</span>`).join("");
+    a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";
+    const chips=[];
+    if(d.sign) chips.push(`<span class="chip sign">${esc(d.sign)}</span>`);
+    chips.push(`<span class="chip">${esc(d.cat)}站</span>`);
     a.innerHTML=`<div class="name">${esc(d.name)}<span class="arrow">↗</span></div>
-      <div class="note">${esc(d.note)}</div><div class="foot">${chips}</div>`;
+      <div class="note">${esc(d.note)}</div><div class="foot">${chips.join("")}</div>`;
     $grid.appendChild(a);
   });
 }
@@ -144,7 +178,7 @@ if(localStorage.getItem("pinkpaw-theme")==="night"){
   themeBtn.textContent="☀️";
 }
 
-renderTags();render();
+renderCats();renderSubs();render();
 </script>
 </body>
 </html>
