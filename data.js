@@ -354,7 +354,7 @@ const PAW_DATA = [
   {
     name: "XiAi",
     url: "https://chatgptpay.cc",
-    note: "送0.5（链接待确认）",
+    note: "送0.5",
     cat: "付费",
     sign: "不可签到"
   },
