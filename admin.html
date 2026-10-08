@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>爪爪匣 · 管理台</title>
+<style>
+:root{
+  --bg:#fff5f8;--bg2:#ffe9f1;--card:#ffffff;
+  --ink:#5b3a48;--ink2:#a97e91;--line:#ffd6e5;
+  --accent:#ff8fb8;--accent2:#ffb6d0;
+  --shadow:0 6px 18px rgba(255,143,184,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
+  color:var(--ink);min-height:100vh;padding:22px 16px 60px;
+}
+header{max-width:720px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between}
+.title{font-size:22px;font-weight:800;letter-spacing:1px}
+.title small{display:block;font-size:11px;font-weight:400;color:var(--ink2);letter-spacing:2px;margin-top:2px}
+.panel{
+  max-width:720px;margin:0 auto;background:var(--card);border-radius:20px;
+  padding:20px;box-shadow:var(--shadow);
+}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.row input,.row textarea{
+  flex:1;min-width:120px;padding:10px 12px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--bg);color:var(--ink);
+  font-size:13.5px;outline:none;font-family:inherit;
+}
+.row textarea{min-height:50px;resize:vertical}
+.row input:focus,.row textarea:focus{border-color:var(--accent)}
+.btn{
+  border:none;background:var(--accent);color:#fff;border-radius:12px;
+  padding:10px 16px;font-size:13.5px;cursor:pointer;font-weight:600;
+}
+.btn.ghost{background:var(--bg2);color:var(--ink)}
+.btn.warn{background:#ff9aa2}
+.list{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.item{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:10px 0;border-bottom:1px dashed var(--line);font-size:13.5px;
+}
+.item .meta{color:var(--ink2);font-size:11.5px;word-break:break-all;margin-top:3px}
+.item .ops{display:flex;gap:6px;flex-shrink:0}
+.item .ops button{border:none;background:var(--bg2);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer}
+.item .ops .up{background:#d8f0ff}
+.out{
+  width:100%;min-height:220px;margin-top:14px;padding:12px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--bg);color:var(--ink);
+  font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;resize:vertical;
+}
+.hint{font-size:11.5px;color:var(--ink2);margin:8px 0 0;line-height:1.7}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ok{color:#2c7a55;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">🐾 爪爪匣 · 管理台<small>LOCAL ADMIN</small></div>
+</header>
+
+<div class="panel">
+  <div class="row">
+    <input id="f-name" placeholder="站点名称">
+    <input id="f-url" placeholder="链接（填你自己的邀请链接）">
+  </div>
+  <div class="row">
+    <input id="f-tags" placeholder="标签，用逗号分隔，如：可签到,纯公益">
+    <input id="f-note" placeholder="一句话备注">
+  </div>
+  <div class="row">
+    <button class="btn" id="addBtn">添加 / 保存修改</button>
+    <button class="btn ghost" id="cancelEdit">取消编辑</button>
+    <button class="btn ghost" id="loadRemote">从线上拉取现有数据</button>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="bar">
+    <button class="btn" id="genBtn">生成 data.js</button>
+    <button class="btn ghost" id="copyBtn">复制</button>
+    <button class="btn ghost" id="clearBtn">清空全部</button>
+  </div>
+  <textarea class="out" id="out" spellcheck="false" placeholder="点「生成 data.js」，把这里的内容整段复制走。"></textarea>
+  <p class="hint">
+    这个页面只在你手机上跑，不上传也没关系。改完点「生成 data.js」，
+    把框里的内容整段复制，去 GitHub 打开仓库里的 data.js，
+    全选粘贴、提交，网站自己就更新了。不需要服务器。
+  </p>
+</div>
+
+<script>
+const KEY="pinkpaw-admin";
+let DATA=load();
+let editingIndex=-1;
+
+function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r);}catch(e){}return [];}
+function save(){localStorage.setItem(KEY,JSON.stringify(DATA));}
+
+const $list=document.getElementById("list"),$out=document.getElementById("out");
+const F=id=>document.getElementById(id);
+
+function render(){
+  $list.innerHTML="";
+  if(!DATA.length){$list.innerHTML='<p class="hint">还没有站点。上面填一条加进来。</p>';return;}
+  DATA.forEach((d,i)=>{
+    const el=document.createElement("div");
+    el.className="item";
+    el.innerHTML=`<div style="flex:1;min-width:0">
+        <div>${d.name}</div>
+        <div class="meta">${(d.tags||[]).join(" / ")||"无标签"} · ${d.url}</div>
+      </div>
+      <div class="ops">
+        <button class="up" data-up="${i}">↑</button>
+        <button data-edit="${i}">改</button>
+        <button data-del="${i}">删</button>
+      </div>`;
+    $list.appendChild(el);
+  });
+  $list.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>startEdit(+b.dataset.edit));
+  $list.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{DATA.splice(+b.dataset.del,1);save();render();});
+  $list.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.up;if(i===0)return;
+    [DATA[i-1],DATA[i]]=[DATA[i],DATA[i-1]];save();render();
+  });
+}
+function startEdit(i){
+  const d=DATA[i];
+  F("f-name").value=d.name;F("f-url").value=d.url;
+  F("f-tags").value=(d.tags||[]).join(",");F("f-note").value=d.note||"";
+  editingIndex=i;window.scrollTo(0,0);
+}
+F("cancelEdit").onclick=()=>{editingIndex=-1;["f-name","f-url","f-tags","f-note"].forEach(id=>F(id).value="");};
+F("addBtn").onclick=()=>{
+  const name=F("f-name").value.trim(),url=F("f-url").value.trim();
+  if(!name||!url){alert("名称和链接不能空");return;}
+  const obj={name,url,note:F("f-note").value.trim(),
+    tags:F("f-tags").value.split(/[,，]/).map(s=>s.trim()).filter(Boolean)};
+  if(editingIndex>=0){DATA[editingIndex]=obj;editingIndex=-1;}else DATA.push(obj);
+  save();render();
+  ["f-name","f-url","f-tags","f-note"].forEach(id=>F(id).value="");
+};
+F("clearBtn").onclick=()=>{if(confirm("清空全部？")){DATA=[];save();render();}};
+
+F("genBtn").onclick=()=>{
+  const body=DATA.map(d=>{
+    const t=(d.tags||[]).map(x=>JSON.stringify(x)).join(", ");
+    return `  {\n    name: ${JSON.stringify(d.name)},\n    url: ${JSON.stringify(d.url)},\n    note: ${JSON.stringify(d.note||"")},\n    tags: [${t}]\n  }`;
+  }).join(",\n");
+  $out.value=`/* 爪爪匣 · 数据文件。整段复制去 GitHub 的 data.js 覆盖提交。 */\n\nconst PAW_DATA = [\n${body}\n];\n`;
+};
+F("copyBtn").onclick=async()=>{
+  if(!$out.value){F("genBtn").click();}
+  try{await navigator.clipboard.writeText($out.value);}
+  catch(e){$out.select();document.execCommand("copy");}
+  alert("已复制，去 GitHub 粘贴");
+};
+F("loadRemote").onclick=async()=>{
+  const u=prompt("把你线上网址填进来（只填域名那部分）","https://exquisite-mochi-329cf3.netlify.app");
+  if(!u)return;
+  try{
+    const r=await fetch(u.replace(/\/+$/,"")+"/data.js");
+    const txt=await r.text();
+    const m=txt.match(/PAW_DATA\s*=\s*(\[[\s\S]*?\])\s*;/);
+    if(!m)throw 0;
+    const arr=JSON.parse(m[1].replace(/(\w+):/g,'"$1":').replace(/,(\s*[\]}])/g,"$1").replace(/'/g,'"'));
+    DATA=arr;save();render();alert("拉到了 "+arr.length+" 条");
+  }catch(e){alert("拉取失败，可能是网址不对或跨域限制。手动填也一样。");}
+};
+
+render();
+</script>
+</body>
+</html>
