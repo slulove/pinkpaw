@@ -131,8 +131,6 @@ function renderCats(){
 }
 function renderSubs(){
   $subs.innerHTML="";
-  if(curCat!=="付费"){ $subs.style.display="none"; return; }
-  $subs.style.display="flex";
   SUBS.forEach(s=>{
     const el=document.createElement("div");
     el.className="sub-tag"+(s===curSub?" on":"");
@@ -144,8 +142,8 @@ function renderSubs(){
 function render(){
   const kw=$search.value.trim().toLowerCase();
   const list=DATA.filter(d=>{
-    if((d.cat||"")!==curCat) return false;
-    if(curCat==="付费" && curSub!=="全部" && (d.sign||"")!==curSub) return false;
+    if(curCat!==(d.cat||"")) return false;
+    if(curSub!=="全部" && (d.sign||"")!==curSub) return false;
     const text=(d.name+(d.note||"")+(d.cat||"")+(d.sign||"")).toLowerCase();
     return !kw||text.includes(kw);
   });
