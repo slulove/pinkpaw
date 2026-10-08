@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>爪爪匣 · PinkPaw</title>
+<style>
+:root{
+  --bg:#fff5f8;--bg2:#ffe9f1;--card:#ffffff;
+  --ink:#5b3a48;--ink2:#a97e91;--line:#ffd6e5;
+  --accent:#ff8fb8;--accent2:#ffb6d0;
+  --shadow:0 6px 18px rgba(255,143,184,.18);
+}
+html[data-theme="night"]{
+  --bg:#2a1c24;--bg2:#3a2530;--card:#3d2733;
+  --ink:#ffe6ef;--ink2:#d9a9bd;--line:#5b3a4a;
+  --accent:#ff8fb8;--accent2:#ff6fa3;
+  --shadow:0 6px 18px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
+  color:var(--ink);min-height:100vh;padding:22px 16px 60px;
+  transition:background .35s,color .35s;
+}
+header{max-width:960px;margin:0 auto 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.title{font-size:26px;font-weight:800;letter-spacing:1px;user-select:none}
+.title small{display:block;font-size:11px;font-weight:400;color:var(--ink2);letter-spacing:3px;margin-top:2px}
+.paw{font-size:28px;margin-right:6px}
+.iconbtn{
+  border:none;background:var(--card);color:var(--ink);
+  width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;
+  box-shadow:var(--shadow);
+}
+.wrap{max-width:960px;margin:0 auto}
+.sub{font-size:12.5px;color:var(--ink2);margin-bottom:14px;line-height:1.7}
+#search{
+  width:100%;padding:13px 18px;border-radius:16px;border:1.5px solid var(--line);
+  background:var(--card);color:var(--ink);font-size:15px;outline:none;box-shadow:var(--shadow);
+}
+#search::placeholder{color:var(--ink2)}
+#search:focus{border-color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.tag{
+  padding:6px 14px;border-radius:999px;font-size:13px;cursor:pointer;
+  background:var(--card);color:var(--ink2);border:1.5px solid var(--line);
+  transition:.2s;user-select:none;
+}
+.tag:hover{border-color:var(--accent2)}
+.tag.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.card{
+  background:var(--card);border-radius:18px;padding:16px 16px 14px;
+  box-shadow:var(--shadow);border:1.5px solid transparent;
+  transition:.22s;display:block;text-decoration:none;color:inherit;
+}
+.card:hover{transform:translateY(-3px);border-color:var(--accent2)}
+.card .name{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.card .name span.arrow{font-size:12px;color:var(--ink2)}
+.card .note{font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:10px;min-height:18px}
+.card .foot{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--bg2);color:var(--ink2)}
+.chip.hot{background:var(--accent);color:#fff}
+.chip.free{background:#b7f0d4;color:#2c7a55}
+.chip.paid{background:#ffe0a3;color:#8a6a1e}
+.empty{text-align:center;color:var(--ink2);padding:50px 0;font-size:14px}
+footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--ink2);letter-spacing:1px;line-height:1.9}
+</style>
+</head>
+<body>
+<header>
+  <div class="title"><span class="paw">🐾</span>爪爪匣<small>PINKPAW</small></div>
+  <button class="iconbtn" id="themeBtn" title="换个颜色">🌙</button>
+</header>
+
+<div class="wrap">
+  <div class="sub">都是自己在用的中转站，点开就是官网，注册能用。<br>来源靠谱，不掺广告。</div>
+  <input id="search" placeholder="搜一搜，爪爪里有什么…">
+  <div class="tags" id="tags"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">这里空空的，什么都没有喵。</div>
+</div>
+
+<footer>爪爪匣 · 拿来就能用</footer>
+
+<script src="./data.js"></script>
+<script>
+const DATA = (typeof PAW_DATA !== "undefined" ? PAW_DATA : []);
+let curTag = "全部";
+
+const $grid=document.getElementById("grid"),$tags=document.getElementById("tags"),
+      $empty=document.getElementById("empty"),$search=document.getElementById("search");
+
+function allTags(){
+  const s=new Set();
+  DATA.forEach(d=>(d.tags||[]).forEach(t=>s.add(t)));
+  return ["全部",...s];
+}
+function renderTags(){
+  $tags.innerHTML="";
+  allTags().forEach(t=>{
+    const el=document.createElement("div");
+    el.className="tag"+(t===curTag?" on":"");
+    el.textContent=t;
+    el.onclick=()=>{curTag=t;renderTags();render();};
+    $tags.appendChild(el);
+  });
+}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"""}[c]));}
+function render(){
+  const kw=$search.value.trim().toLowerCase();
+  const list=DATA.filter(d=>{
+    const tagOk=curTag==="全部"||(d.tags||[]).includes(curTag);
+    const text=(d.name+(d.note||"")+(d.tags||[]).join("")).toLowerCase();
+    return tagOk&&(!kw||text.includes(kw));
+  });
+  $grid.innerHTML="";
+  $empty.style.display=list.length?"none":"block";
+  list.forEach(d=>{
+    const a=document.createElement("a");
+    a.className="card";
+    a.href=d.url;                       // 整张卡片就是超链接
+    a.target="_blank";
+    a.rel="noopener noreferrer";
+    const chips=(d.tags||[]).map(t=>`<span class="chip">${esc(t)}</span>`).join("");
+    a.innerHTML=`<div class="name">${esc(d.name)}<span class="arrow">↗</span></div>
+      <div class="note">${esc(d.note)}</div><div class="foot">${chips}</div>`;
+    $grid.appendChild(a);
+  });
+}
+$search.addEventListener("input",render);
+
+const themeBtn=document.getElementById("themeBtn");
+themeBtn.onclick=()=>{
+  const now=document.documentElement.getAttribute("data-theme");
+  const next=now==="night"?"day":"night";
+  document.documentElement.setAttribute("data-theme",next);
+  themeBtn.textContent=next==="night"?"☀️":"🌙";
+  localStorage.setItem("pinkpaw-theme",next);
+};
+if(localStorage.getItem("pinkpaw-theme")==="night"){
+  document.documentElement.setAttribute("data-theme","night");
+  themeBtn.textContent="☀️";
+}
+
+renderTags();render();
+</script>
+</body>
+</html>
