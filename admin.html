@@ -97,6 +97,12 @@ header{max-width:720px;margin:0 auto 16px}
     <button class="btn ghost" id="impBtn">导入备份</button>
     <button class="btn warn" id="clearBtn">清空全部</button>
   </div>
+  <div class="row" style="margin-top:10px;align-items:center">
+    <label style="font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px">
+      <input type="checkbox" id="autoChk" checked style="flex:none;width:16px;height:16px">
+      停手一分半后自动存一份备份到你手机的下载目录（同名覆盖，只留最新一份）
+    </label>
+  </div>
   <input type="file" id="fileInput" accept=".json" style="display:none">
   <textarea class="out" id="out" spellcheck="false" placeholder="点「生成 data.js」，把这里的内容整段复制走。"></textarea>
   <p class="hint">
@@ -110,19 +116,34 @@ const KEY="pinkpaw-admin-v2";
 let DATA=load();
 let editingIndex=-1;
 
+let autoOn=true,lastChange=0,lastBackup=0,dirty=false;
 function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r);}catch(e){}return [];}
-function save(){localStorage.setItem(KEY,JSON.stringify(DATA));}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(DATA));}catch(e){}
+  dirty=true;lastChange=Date.now();
+}
+setInterval(()=>{
+  if(!autoOn||!dirty||!DATA.length)return;
+  const now=Date.now();
+  if(now-lastChange>=90000||now-lastBackup>=300000){autoBackup();}
+},15000);
+function autoBackup(){
+  try{
+    const s=JSON.stringify(DATA,null,2);
+    const blob=new Blob([s],{type:"application/json"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="pinkpaw-备份-"+DATA.length+"站.json";
+    a.click();
+    dirty=false;lastBackup=Date.now();
+  }catch(e){}
+}
 
 const $list=document.getElementById("list"),$out=document.getElementById("out"),
       $stat=document.getElementById("stat");
 const F=id=>document.getElementById(id);
 
-function syncSign(){
-  const isPaid=F("f-cat").value==="付费";
-  F("f-sign").disabled=!isPaid;
-  F("f-sign").style.opacity=isPaid?1:.45;
-}
-F("f-cat").onchange=syncSign;
+function syncSign(){}
 
 function render(){
   const paid=DATA.filter(d=>d.cat==="付费").length;
@@ -166,7 +187,7 @@ F("addBtn").onclick=()=>{
   if(!name||!url){alert("名称和链接不能空");return;}
   const cat=F("f-cat").value;
   const obj={name,url,note:F("f-note").value.trim(),cat,
-    sign:cat==="付费"?F("f-sign").value:""};
+    sign:F("f-sign").value};
   if(editingIndex>=0){DATA[editingIndex]=obj;editingIndex=-1;}else DATA.push(obj);
   save();render();
   ["f-name","f-url","f-note"].forEach(id=>F(id).value="");
@@ -199,6 +220,8 @@ F("fileInput").onchange=e=>{
 };
 
 syncSign();
+F("autoChk").checked=autoOn;
+F("autoChk").onchange=()=>{autoOn=F("autoChk").checked;};
 render();
 </script>
 </body>
