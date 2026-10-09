@@ -167,6 +167,83 @@ const PAW_DATA = [
     cat: "付费",
     sign: "可签到"
   },
+  {
+    name: "rai",
+    url: "https://raivip.com/register?aff=QP3s",
+    note: "注册送6，周四克劳德哈基米gpt限免",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "茉莉冰茶",
+    url: "http://a.molibingcha.xyz/sign-up?aff=hR0p",
+    note: "注册送1",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "rua",
+    url: "https://api.rua.chat/sign-up?aff=6003",
+    note: "注册不送",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "糯米兔",
+    url: "https://api.seerss.xyz/register?aff=ueLU",
+    note: "签到有门槛",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "布丁熊",
+    url: "https://ai.hyperx.one/sign-up?aff=QUnm",
+    note: "注册送0.5",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "nodex",
+    url: "https://nodexapi.it.com/sign-up?aff=Ugqe",
+    note: "",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "剑阁云枢",
+    url: "https://www.jiangeyun.xyz/register?aff=V4MXJ5Q8VGR4",
+    note: "注册送，签到有门槛",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "可萌",
+    url: "https://api456.me/register?aff=qSWE",
+    note: "注册送",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "信心花舍",
+    url: "https://xxhs.bgstudio.top/sign-up?aff=AsTn",
+    note: "注册送2",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "Liminality",
+    url: "https://beizhi.dedyn.io/sign-up?aff=ucJF",
+    note: "注册送",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "gcmod",
+    url: "https://gcmod.bond/register?aff=vWiR",
+    note: "注册送",
+    cat: "付费",
+    sign: "可签到"
+  },
 
   /* ---------- 付费站 · 不可签到 ---------- */
   {
@@ -275,13 +352,6 @@ const PAW_DATA = [
     sign: "不可签到"
   },
   {
-    name: "rai",
-    url: "https://raivip.com/register?aff=QP3s",
-    note: "注册送6，周四克劳德哈基米gpt限免",
-    cat: "付费",
-    sign: "不可签到"
-  },
-  {
     name: "刺猬",
     url: "https://cc.cwapi.vip/sign-up?aff=FohX",
     note: "注册送，味道还可以",
@@ -348,6 +418,20 @@ const PAW_DATA = [
     name: "空寂",
     url: "http://api.kongji.org/register?aff=DWPXGNW3SPM3",
     note: "0试吃",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "七喜",
+    url: "https://7up.ing/sign-up?aff=jcVg",
+    note: "注册送1",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "基元律动",
+    url: "https://tokenrhythm.studio/i/rf_tr_Y2GE7V?share_id=3e484c0d-f5f2-44e0-a2a7-4f6e9742eb36",
+    note: "注册送（实测约66元），实名领18r，兑换码 rf_tr_Y2GE7V",
     cat: "付费",
     sign: "不可签到"
   },
