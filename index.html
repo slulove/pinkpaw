@@ -128,7 +128,7 @@ function renderCats(){
     const n=DATA.filter(d=>d.cat===c.key).length;
     const el=document.createElement("div");
     el.className="cat"+(c.key===curCat?" on":"");
-    el.innerHTML=esc(c.key)+"站<small>"+esc(c.desc)+" · "+n+"</small>";
+    el.innerHTML=esc(c.key)+`站<small>${esc(c.desc)} · ${n}</small>`;
     el.onclick=()=>{curCat=c.key;curSub="全部";renderCats();renderSubs();render();};
     $cats.appendChild(el);
   });
@@ -154,16 +154,16 @@ function render(){
   });
   $grid.innerHTML="";
   $empty.style.display=list.length?"none":"block";
-  $count.textContent=list.length?("共 "+list.length+" 个站"):"";
+  $count.textContent=list.length?`共 ${list.length} 个站`:"";
   list.forEach(d=>{
     const a=document.createElement("a");
     a.className="card";
     a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";
     const chips=[];
-    if(d.sign) chips.push("<span class=\"chip sign\">"+esc(d.sign)+"</span>");
-    chips.push("<span class=\"chip\">"+esc(d.cat)+"站</span>");
-    a.innerHTML="<div class=\"name\">"+esc(d.name)+"<span class=\"arrow\">↗</span></div>"+
-      "<div class=\"note\">"+(esc(d.note)||"&#160;")+"</div><div class=\"foot\">"+chips.join("")+"</div>";
+    if(d.sign) chips.push(`<span class="chip sign">${esc(d.sign)}</span>`);
+    chips.push(`<span class="chip">${esc(d.cat)}站</span>`);
+    a.innerHTML=`<div class="name">${esc(d.name)}<span class="arrow">↗</span></div>
+      <div class="note">${esc(d.note)||"&nbsp;"}</div><div class="foot">${chips.join("")}</div>`;
     $grid.appendChild(a);
   });
 }
