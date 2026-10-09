@@ -32,7 +32,7 @@ header{max-width:720px;margin:0 auto 16px}
 }
 .row textarea{min-height:50px;resize:vertical}
 .row input:focus,.row textarea:focus,.row select:focus{border-color:var(--accent)}
-.row select{cursor:pointer}
+.row select{cursor:pointer;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink2) 50%),linear-gradient(135deg,var(--ink2) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
 .btn{
   border:none;background:var(--accent);color:#fff;border-radius:12px;
   padding:10px 16px;font-size:13.5px;cursor:pointer;font-weight:600;
@@ -109,7 +109,8 @@ header{max-width:720px;margin:0 auto 16px}
   <input type="file" id="fileInput" accept=".json" style="display:none">
   <textarea class="out" id="out" spellcheck="false" placeholder="点「生成 data.js」，把这里的内容整段复制走。"></textarea>
   <p class="hint">
-    选好分类和签到情况就不用管标签了。改完点「生成 data.js」，整段复制发我。
+    选好分类和签到情况就不用管标签了。改完点「生成 data.js」，
+    整段复制，去 GitHub 打开 data.js 覆盖提交，网站自己就更新了。
   </p>
 </div>
 
@@ -145,43 +146,51 @@ const $list=document.getElementById("list"),$out=document.getElementById("out"),
       $stat=document.getElementById("stat");
 const F=id=>document.getElementById(id);
 
+function syncSign(){}
+
 function render(){
   const paid=DATA.filter(d=>d.cat==="付费").length;
   const pub=DATA.filter(d=>d.cat==="公益").length;
-  $stat.textContent="共 "+DATA.length+" 个站 · 付费 "+paid+" · 公益 "+pub;
+  $stat.textContent=`共 ${DATA.length} 个站 · 付费 ${paid} · 公益 ${pub}`;
   $list.innerHTML="";
   if(!DATA.length){$list.innerHTML='<p class="hint">还没有站点。上面填一条加进来。</p>';return;}
   DATA.forEach((d,i)=>{
     const el=document.createElement("div");
     el.className="item";
-    el.innerHTML='<div style="flex:1;min-width:0"><div>'+esc(d.name)+'</div>'+
-      '<div class="meta">'+esc(d.cat)+(d.sign?" · "+esc(d.sign):"")+" · "+esc(d.url)+'</div></div>'+
-      '<div class="ops"><button class="up" data-up="'+i+'">↑</button>'+
-      '<button data-edit="'+i+'">改</button><button data-del="'+i+'">删</button></div>';
+    el.innerHTML=`<div style="flex:1;min-width:0">
+        <div>${d.name}</div>
+        <div class="meta">${d.cat}${d.sign?" · "+d.sign:""} · ${d.url}</div>
+      </div>
+      <div class="ops">
+        <button class="up" data-up="${i}">↑</button>
+        <button data-edit="${i}">改</button>
+        <button data-del="${i}">删</button>
+      </div>`;
     $list.appendChild(el);
   });
   $list.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>startEdit(+b.dataset.edit));
   $list.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{DATA.splice(+b.dataset.del,1);save();render();});
   $list.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{
     const i=+b.dataset.up;if(i===0)return;
-    const t=DATA[i-1];DATA[i-1]=DATA[i];DATA[i]=t;save();render();
+    [DATA[i-1],DATA[i]]=[DATA[i],DATA[i-1]];save();render();
   });
 }
-function esc(s){return String(s==null?"":s).replace(/&/g,"&#38;").replace(/</g,"&#60;").replace(/>/g,"&#62;").replace(/"/g,"&#34;");}
 function startEdit(i){
   const d=DATA[i];
   F("f-name").value=d.name;F("f-url").value=d.url;
   F("f-note").value=d.note||"";
   F("f-cat").value=d.cat||"付费";
   F("f-sign").value=d.sign||"可签到";
+  syncSign();
   editingIndex=i;window.scrollTo(0,0);
 }
 F("cancelEdit").onclick=()=>{editingIndex=-1;["f-name","f-url","f-note"].forEach(id=>F(id).value="");};
 F("addBtn").onclick=()=>{
   const name=F("f-name").value.trim(),url=F("f-url").value.trim();
   if(!name||!url){alert("名称和链接不能空");return;}
-  const obj={name:name,url:url,note:F("f-note").value.trim(),
-    cat:F("f-cat").value,sign:F("f-sign").value};
+  const cat=F("f-cat").value;
+  const obj={name,url,note:F("f-note").value.trim(),cat,
+    sign:F("f-sign").value};
   if(editingIndex>=0){DATA[editingIndex]=obj;editingIndex=-1;}else DATA.push(obj);
   save();render();
   ["f-name","f-url","f-note"].forEach(id=>F(id).value="");
@@ -190,11 +199,9 @@ F("clearBtn").onclick=()=>{if(confirm("清空全部？")){DATA=[];save();render(
 
 F("genBtn").onclick=()=>{
   const body=DATA.map(d=>{
-    return "  {\n    name: "+JSON.stringify(d.name)+",\n    url: "+JSON.stringify(d.url)+
-      ",\n    note: "+JSON.stringify(d.note||"")+",\n    cat: "+JSON.stringify(d.cat||"付费")+
-      ",\n    sign: "+JSON.stringify(d.sign||"")+"\n  }";
+    return `  {\n    name: ${JSON.stringify(d.name)},\n    url: ${JSON.stringify(d.url)},\n    note: ${JSON.stringify(d.note||"")},\n    cat: ${JSON.stringify(d.cat||"付费")},\n    sign: ${JSON.stringify(d.sign||"")}\n  }`;
   }).join(",\n");
-  $out.value="/* 爪爪匣 · 数据文件。整段复制去 GitHub 的 data.js 覆盖提交。 */\n\nconst PAW_DATA = [\n"+body+"\n];\n";
+  $out.value=`/* 爪爪匣 · 数据文件。整段复制去 GitHub 的 data.js 覆盖提交。 */\n\nconst PAW_DATA = [\n${body}\n];\n`;
 };
 F("copyBtn").onclick=async()=>{
   if(!$out.value){F("genBtn").click();}
@@ -215,6 +222,7 @@ F("fileInput").onchange=e=>{
   r.readAsText(f);
 };
 
+syncSign();
 F("autoChk").checked=autoOn;
 F("autoChk").onchange=()=>{autoOn=F("autoChk").checked;};
 render();
