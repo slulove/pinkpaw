@@ -161,6 +161,13 @@ const PAW_DATA = [
     sign: "可签到"
   },
   {
+    name: "nova",
+    url: "https://once.novai.su/sign-up?aff=y0UT",
+    note: "注册送1",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
     name: "玖时",
     url: "https://api.jiushi.xin/register?aff=0fb2",
     note: "注册送3",
@@ -470,6 +477,13 @@ const PAW_DATA = [
     cat: "付费",
     sign: "不可签到"
   },
+  {
+    name: "zhexiu",
+    url: "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
+    note: "注册送0",
+    cat: "付费",
+    sign: "不可签到"
+  },
 
   /* ---------- 公益站 · 可签到 ---------- */
   {
@@ -504,6 +518,13 @@ const PAW_DATA = [
     name: "星桥",
     url: "https://xingqiao.chat/sign-up?aff=Zcxv",
     note: "半公益站，好像关注册了",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "落樱公益站",
+    url: "https://crouter.luoying.work/",
+    note: "进群找管理拿邀请码注册，QQ群 916395971",
     cat: "公益",
     sign: "可签到"
   }
