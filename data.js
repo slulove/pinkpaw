@@ -119,13 +119,6 @@ const PAW_DATA = [
     sign: "可签到"
   },
   {
-    name: "星桥",
-    url: "https://xingqiao.chat/sign-up?aff=Zcxv",
-    note: "好像关注册了",
-    cat: "付费",
-    sign: "可签到"
-  },
-  {
     name: "鹿鹿",
     url: "https://nova.cervus.cn/register?aff=w7HN",
     note: "",
@@ -164,6 +157,27 @@ const PAW_DATA = [
     name: "骆驼",
     url: "https://api.camel-hub.cn/register?aff=MwlT",
     note: "需实名，体验券5天内每日$10",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "玖时",
+    url: "https://api.jiushi.xin/register?aff=0fb2",
+    note: "注册送3",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "冻梨",
+    url: "https://api.dongli.work/sign-up?aff=e4Ud",
+    note: "注册送0.6",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "超级稳定api",
+    url: "https://ai.gpt666claude.top/sign-up?aff=2vCo",
+    note: "注册送0.4",
     cat: "付费",
     sign: "可签到"
   },
@@ -436,6 +450,20 @@ const PAW_DATA = [
     sign: "不可签到"
   },
   {
+    name: "Ekan8",
+    url: "https://api.ekanw.com/sign-up?aff=fPAH",
+    note: "注册送1",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "sora",
+    url: "https://api2.usora.net/sign-up?aff=k1kL",
+    note: "注册送1.8",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
     name: "XiAi",
     url: "https://chatgptpay.cc",
     note: "送0.5",
@@ -462,6 +490,20 @@ const PAW_DATA = [
     name: "0z",
     url: "https://newapi.0z.hk/sign-up?aff=XTMh",
     note: "大方公益站，群内签到",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "啾小啾公益站",
+    url: "https://api.103.ink/register?aff=lnpU",
+    note: "",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "星桥",
+    url: "https://xingqiao.chat/sign-up?aff=Zcxv",
+    note: "半公益站，好像关注册了",
     cat: "公益",
     sign: "可签到"
   }
