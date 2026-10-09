@@ -522,7 +522,7 @@ const PAW_DATA = [
     sign: "可签到"
   },
   {
-    name: "落樱公益站",
+    name: "Crouter公益站",
     url: "https://crouter.luoying.work/",
     note: "进群找管理拿邀请码注册，QQ群 916395971",
     cat: "公益",
