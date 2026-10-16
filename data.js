@@ -266,7 +266,22 @@ const PAW_DATA = [
     sign: "可签到"
   },
 
-  /* ---------- 付费站 · 不可签到 ---------- */
+    {
+    name: "tuturu",
+    url: "https://api.tuturu.dev/sign-up?aff=lh30",
+    note: "注册送1.5，有签到",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "taicu",
+    url: "https://taicu.vip/sign-up?aff=TQjP",
+    note: "注册送0.25，有签到，新用户首次任意充值后进群找站长额外领1.5元",
+    cat: "付费",
+    sign: "可签到"
+  },
+
+/* ---------- 付费站 · 不可签到 ---------- */
   {
     name: "芙卡卡",
     url: "https://api.fuka.win/sign-up?aff=0wbD",
@@ -480,12 +495,41 @@ const PAW_DATA = [
   {
     name: "zhexiu",
     url: "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
-    note: "注册送0",
+    note: "进群领15额度试吃，小站子，哈基米美味不降智",
     cat: "付费",
     sign: "不可签到"
   },
 
-  /* ---------- 公益站 · 可签到 ---------- */
+    {
+    name: "甜橙派",
+    url: "https://i.orangepie.org/sign-up?aff=DKje",
+    note: "充值送100额度",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "元点",
+    url: "https://www.airelay.pro/register?aff=L9JM4CAX65M2",
+    note: "注册不送，无签到，推荐的人挺多的",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "sanbai",
+    url: "https://direct-api.sanbailab.com/register?aff=AHF2XUJMMK6L",
+    note: "进群领取1$试吃",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "霸气",
+    url: "https://ai.121628.xyz/sign-up?aff=D8Ai",
+    note: "注册送1，有免费分组",
+    cat: "付费",
+    sign: "不可签到"
+  },
+
+/* ---------- 公益站 · 可签到 ---------- */
   {
     name: "arityflow",
     url: "https://www.arityflow.top/sign-up?aff=LvVA",
