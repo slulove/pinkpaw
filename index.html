@@ -10,12 +10,20 @@
   --ink:#5b3a48;--ink2:#a97e91;--line:#ffd6e5;
   --accent:#ff8fb8;--accent2:#ffb6d0;
   --shadow:0 6px 18px rgba(255,143,184,.18);
+  --notice-bg:rgba(255,255,255,.8);
+  --modal-bg:rgba(255,255,255,.94);
+  --glass-btn:rgba(255,143,184,.12);
+  --glass-btn-hover:rgba(255,143,184,.22);
 }
 html[data-theme="night"]{
   --bg:#2a1c24;--bg2:#3a2530;--card:#3d2733;
   --ink:#ffe6ef;--ink2:#d9a9bd;--line:#5b3a4a;
   --accent:#ff8fb8;--accent2:#ff6fa3;
   --shadow:0 6px 18px rgba(0,0,0,.35);
+  --notice-bg:rgba(61,39,51,.75);
+  --modal-bg:rgba(42,28,36,.95);
+  --glass-btn:rgba(255,255,255,.08);
+  --glass-btn-hover:rgba(255,255,255,.16);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -28,12 +36,36 @@ header{max-width:960px;margin:0 auto 12px;display:flex;align-items:center;justif
 .title{font-size:24px;font-weight:800;letter-spacing:1px;user-select:none}
 .title small{display:block;font-size:10px;font-weight:400;color:var(--ink2);letter-spacing:3px;margin-top:2px}
 .paw{font-size:26px;margin-right:6px}
+
+.nav-actions{display:flex;align-items:center;gap:8px}
+.help-btn{
+  border:none;background:var(--accent);color:#fff;
+  padding:0 14px;height:40px;border-radius:20px;
+  font-size:13.5px;font-weight:700;cursor:pointer;
+  box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:5px;
+  transition:transform .18s,background .2s;user-select:none;
+}
+.help-btn:active{transform:scale(.95)}
 .iconbtn{
   border:none;background:var(--card);color:var(--ink);
   width:40px;height:40px;border-radius:50%;font-size:17px;cursor:pointer;
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow);transition:transform .18s;user-select:none;
 }
+.iconbtn:active{transform:scale(.95)}
+
 .wrap{max-width:960px;margin:0 auto}
+
+/* 公告栏 */
+.notice-bar{
+  background:var(--notice-bg);border:1.5px solid var(--line);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:16px;padding:10px 14px;margin-bottom:12px;
+  font-size:12.5px;line-height:1.55;color:var(--ink);
+  display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);
+}
+.notice-icon{font-size:15px;flex-shrink:0}
+.notice-text{flex:1}
+
 #search{
   width:100%;padding:12px 18px;border-radius:16px;border:1.5px solid var(--line);
   background:var(--card);color:var(--ink);font-size:15px;outline:none;box-shadow:var(--shadow);
@@ -78,15 +110,93 @@ header{max-width:960px;margin:0 auto 12px;display:flex;align-items:center;justif
 .chip.sign{background:var(--accent);color:#fff}
 .empty{text-align:center;color:var(--ink2);padding:50px 0;font-size:14px}
 footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;color:var(--ink2);letter-spacing:1px;line-height:1.9}
+
+/* 返回顶部悬浮按钮 */
+.back-to-top{
+  position:fixed;right:20px;bottom:24px;width:44px;height:44px;border-radius:50%;
+  background:var(--card);color:var(--accent);border:1.5px solid var(--line);
+  box-shadow:var(--shadow);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:18px;opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .25s,transform .25s,visibility .25s,background .2s;
+  z-index:90;user-select:none;
+}
+.back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:active{transform:scale(.92)}
+
+/* 防迷路弹窗 */
+.modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;z-index:100;
+  opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;
+}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-box{
+  background:var(--modal-bg);border:1.5px solid var(--line);
+  border-radius:24px;width:100%;max-width:320px;padding:24px 20px 20px;
+  box-shadow:0 12px 36px rgba(0,0,0,.3);position:relative;
+  text-align:center;transform:scale(.92);transition:transform .25s cubic-bezier(.175,.885,.32,1.275);
+}
+.modal-overlay.open .modal-box{transform:scale(1)}
+.modal-close{
+  position:absolute;top:14px;right:16px;border:none;background:transparent;
+  color:var(--ink2);font-size:20px;cursor:pointer;line-height:1;padding:4px;
+}
+.modal-badge{
+  display:inline-block;font-size:24px;margin-bottom:6px;
+}
+.modal-title{
+  font-size:18px;font-weight:800;color:var(--ink);letter-spacing:1px;margin-bottom:6px;
+}
+.modal-desc{
+  font-size:12.5px;color:var(--ink2);line-height:1.5;margin-bottom:18px;
+}
+.xhs-card{
+  background:var(--glass-btn);border:1.5px solid var(--line);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-radius:16px;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.xhs-info{text-align:left}
+.xhs-label{font-size:10.5px;color:var(--ink2);display:block;margin-bottom:2px}
+.xhs-id{font-size:15.5px;font-weight:800;color:var(--accent);letter-spacing:.5px}
+.copy-btn{
+  border:1px solid var(--line);background:var(--glass-btn);color:var(--ink);
+  padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;
+  cursor:pointer;transition:.18s;backdrop-filter:blur(4px);
+  display:inline-flex;align-items:center;gap:4px;user-select:none;
+}
+.copy-btn:hover{background:var(--glass-btn-hover)}
+.copy-btn:active{transform:scale(.94)}
+.copy-btn.copied{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 轻提示Toast */
+.toast{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);
+  background:rgba(0,0,0,.8);color:#fff;padding:8px 16px;border-radius:999px;
+  font-size:13px;pointer-events:none;opacity:0;visibility:hidden;
+  transition:all .2s;z-index:110;
+}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 </style>
 </head>
 <body>
 <header>
   <div class="title"><span class="paw">🐾</span>爪爪匣<small>PINKPAW</small></div>
-  <button class="iconbtn" id="themeBtn" title="换个颜色">🌙</button>
+  <div class="nav-actions">
+    <button class="help-btn" id="helpBtn" title="防迷路">📍 防迷路</button>
+    <button class="iconbtn" id="themeBtn" title="换个颜色">🌙</button>
+  </div>
 </header>
 
 <div class="wrap">
+  <!-- 公告栏 -->
+  <div class="notice-bar">
+    <span class="notice-icon">📢</span>
+    <div class="notice-text">纯自用分享，自行避雷。站子不定时更新，建议保存好链接，教程和答疑可以去小红书找我。</div>
+  </div>
+
   <div class="cats" id="cats"></div>
   <input id="search" placeholder="搜一搜，爪爪里有什么…">
   <div class="subs" id="subs"></div>
@@ -97,6 +207,28 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 </div>
 
 <footer>爪爪匣 · 拿来就能用</footer>
+
+<!-- 返回顶部按钮 -->
+<button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
+<!-- 防迷路弹窗 -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-badge">📕</div>
+    <div class="modal-title">防迷路</div>
+    <div class="modal-desc">有不懂的都可以来小红书找我。</div>
+    <div class="xhs-card">
+      <div class="xhs-info">
+        <span class="xhs-label">小红书号</span>
+        <span class="xhs-id" id="xhsVal">lilove133</span>
+      </div>
+      <button class="copy-btn" id="copyBtn">复制</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">已复制</div>
 
 <script src="./data.js"></script>
 <script>
@@ -169,6 +301,7 @@ function render(){
 }
 $search.addEventListener("input",render);
 
+// 主题切换
 const themeBtn=document.getElementById("themeBtn");
 themeBtn.onclick=()=>{
   const now=document.documentElement.getAttribute("data-theme");
@@ -181,6 +314,51 @@ if(localStorage.getItem("pinkpaw-theme")==="night"){
   document.documentElement.setAttribute("data-theme","night");
   themeBtn.textContent="☀️";
 }
+
+// 防迷路弹窗控制
+const modalOverlay=document.getElementById("modalOverlay");
+const helpBtn=document.getElementById("helpBtn");
+const modalClose=document.getElementById("modalClose");
+const copyBtn=document.getElementById("copyBtn");
+const toast=document.getElementById("toast");
+
+helpBtn.onclick=()=>{modalOverlay.classList.add("open")};
+modalClose.onclick=()=>{modalOverlay.classList.remove("open")};
+modalOverlay.onclick=(e)=>{if(e.target===modalOverlay) modalOverlay.classList.remove("open")};
+
+function showToast(msg){
+  toast.textContent=msg;
+  toast.classList.add("show");
+  setTimeout(()=>{toast.classList.remove("show")},1500);
+}
+
+copyBtn.onclick=()=>{
+  const val=document.getElementById("xhsVal").textContent.trim();
+  navigator.clipboard.writeText(val).then(()=>{
+    copyBtn.textContent="已复制";
+    copyBtn.classList.add("copied");
+    showToast("小红书号已复制");
+    setTimeout(()=>{
+      copyBtn.textContent="复制";
+      copyBtn.classList.remove("copied");
+    },2000);
+  }).catch(()=>{
+    showToast("复制失败，请手动长按");
+  });
+};
+
+// 返回顶部按钮逻辑
+const backToTop=document.getElementById("backToTop");
+window.addEventListener("scroll",()=>{
+  if(window.scrollY>220){
+    backToTop.classList.add("show");
+  }else{
+    backToTop.classList.remove("show");
+  }
+});
+backToTop.onclick=()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
+};
 
 renderCats();renderSubs();render();
 </script>
