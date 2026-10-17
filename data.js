@@ -547,7 +547,7 @@ const PAW_DATA = [
   {
     name: "0z",
     url: "https://newapi.0z.hk/sign-up?aff=XTMh",
-    note: "大方公益站，群内签到",
+    note: "大方公益站，不要直接注册，先点0z统一登录注册账号再登入",
     cat: "公益",
     sign: "可签到"
   },
