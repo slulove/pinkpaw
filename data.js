@@ -19,6 +19,20 @@
    ========================================================== */
 
 const PAW_DATA = [
+  {
+    name: "zhexiu代充",
+    url: "https://acg.77777777ai.com/",
+    note: "plus120，官网直充，进群优惠",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "zhexiu",
+    url: "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
+    note: "进群领15元额度试吃，gpt 0.1倍率，小站子，哈基米美味不降智",
+    cat: "付费",
+    sign: "不可签到"
+  },
   /* ---------- 付费站 · 可签到 ---------- */
   {
     name: "哈基米",
@@ -492,14 +506,6 @@ const PAW_DATA = [
     cat: "付费",
     sign: "不可签到"
   },
-  {
-    name: "zhexiu",
-    url: "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
-    note: "进群领15额度试吃，小站子，哈基米美味不降智",
-    cat: "付费",
-    sign: "不可签到"
-  },
-
     {
     name: "甜橙派",
     url: "https://i.orangepie.org/sign-up?aff=DKje",
