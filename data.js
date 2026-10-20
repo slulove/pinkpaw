@@ -29,7 +29,7 @@ const PAW_DATA = [
   {
     name: "zhexiu",
     url: "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
-    note: "进群领15元额度试吃，gpt 0.1倍率，小站子，哈基米美味不降智",
+    note: "进群领15元额度试吃，gpt0.1倍率，Claude支持4.6-5.5,哈基米美味不降智",
     cat: "付费",
     sign: "不可签到"
   },
@@ -100,7 +100,7 @@ const PAW_DATA = [
   {
     name: "piu",
     url: "https://piu.du4s.com/sign-up?aff=Vp9v",
-    note: "好吃大方",
+    note: "价格有点浮动，有疯狂星期五活动，充值一百额度可以免费用1h哈基米，活动会变，记得进群",
     cat: "付费",
     sign: "可签到"
   },
@@ -297,6 +297,48 @@ const PAW_DATA = [
 
 /* ---------- 付费站 · 不可签到 ---------- */
   {
+    name: "Haoai",
+    url: "https://ai.m-hao.com/sign-up?aff=nfC3",
+    note: "没试吃，有门槛抽奖",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "星辰",
+    url: "https://api1.apistar.com.cn/#register?aff=vzUd",
+    note: "注册送2",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "硅基流动",
+    url: "https://cloud.siliconflow.cn/i/aPzlMsQz",
+    note: "注册送16",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "Haoai",
+    url: "https://ai.m-hao.com/sign-up?aff=nfC3",
+    note: "没试吃，有门槛抽奖",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "星辰",
+    url: "https://api1.apistar.com.cn/#register?aff=vzUd",
+    note: "注册送2",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "硅基流动",
+    url: "https://cloud.siliconflow.cn/i/aPzlMsQz",
+    note: "注册送16",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
     name: "芙卡卡",
     url: "https://api.fuka.win/sign-up?aff=0wbD",
     note: "注册送300额度",
@@ -453,9 +495,9 @@ const PAW_DATA = [
   {
     name: "aiportx",
     url: "https://www.aiportx.com/register?aff=KRUPSB39DJV8",
-    note: "味道还可以",
+    note: "味道还可以。群内签到，QQ群311181337",
     cat: "付费",
-    sign: "不可签到"
+    sign: "可签到"
   },
   {
     name: "sta1n",
@@ -536,6 +578,48 @@ const PAW_DATA = [
   },
 
 /* ---------- 公益站 · 可签到 ---------- */
+  {
+    name: "learn",
+    url: "https://free.learn-ai.top/sign-up?aff=i2Cf",
+    note: "有签到，站长近期恢复，关注QQ群",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "露娜公益站",
+    url: "https://freeapi.site/register?aff=TUCD3M3LMNDH",
+    note: "注册送几百额度，签到送几百额度",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "启源星",
+    url: "https://chuan.sylu.cc/sign-up?aff=h8Ba",
+    note: "有签到",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "learn",
+    url: "https://free.learn-ai.top/sign-up?aff=i2Cf",
+    note: "有签到，站长近期恢复，关注QQ群",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "露娜公益站",
+    url: "https://freeapi.site/register?aff=TUCD3M3LMNDH",
+    note: "注册送几百额度，签到送几百额度",
+    cat: "公益",
+    sign: "可签到"
+  },
+  {
+    name: "启源星",
+    url: "https://chuan.sylu.cc/sign-up?aff=h8Ba",
+    note: "有签到",
+    cat: "公益",
+    sign: "可签到"
+  },
   {
     name: "arityflow",
     url: "https://www.arityflow.top/sign-up?aff=LvVA",
