@@ -318,27 +318,6 @@ const PAW_DATA = [
     sign: "不可签到"
   },
   {
-    name: "Haoai",
-    url: "https://ai.m-hao.com/sign-up?aff=nfC3",
-    note: "没试吃，有门槛抽奖",
-    cat: "付费",
-    sign: "不可签到"
-  },
-  {
-    name: "星辰",
-    url: "https://api1.apistar.com.cn/#register?aff=vzUd",
-    note: "注册送2",
-    cat: "付费",
-    sign: "不可签到"
-  },
-  {
-    name: "硅基流动",
-    url: "https://cloud.siliconflow.cn/i/aPzlMsQz",
-    note: "注册送16",
-    cat: "付费",
-    sign: "不可签到"
-  },
-  {
     name: "芙卡卡",
     url: "https://api.fuka.win/sign-up?aff=0wbD",
     note: "注册送300额度",
@@ -578,27 +557,6 @@ const PAW_DATA = [
   },
 
 /* ---------- 公益站 · 可签到 ---------- */
-  {
-    name: "learn",
-    url: "https://free.learn-ai.top/sign-up?aff=i2Cf",
-    note: "有签到，站长近期恢复，关注QQ群",
-    cat: "公益",
-    sign: "可签到"
-  },
-  {
-    name: "露娜公益站",
-    url: "https://freeapi.site/register?aff=TUCD3M3LMNDH",
-    note: "注册送几百额度，签到送几百额度",
-    cat: "公益",
-    sign: "可签到"
-  },
-  {
-    name: "启源星",
-    url: "https://chuan.sylu.cc/sign-up?aff=h8Ba",
-    note: "有签到",
-    cat: "公益",
-    sign: "可签到"
-  },
   {
     name: "learn",
     url: "https://free.learn-ai.top/sign-up?aff=i2Cf",
