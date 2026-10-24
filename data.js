@@ -619,5 +619,33 @@ const PAW_DATA = [
     note: "进群找管理拿邀请码注册，QQ群 916395971",
     cat: "公益",
     sign: "可签到"
+  },
+  {
+    name: "ZQuant",
+    url: "https://sub2api.zquant.site/register?aff=L3X5F62SU5ZM",
+    note: "还没吃，据说0.01一次gpt image 进去得用魔法",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "蓝胖云",
+    url: "https://inv.lanpangyun.my/#/register?code=U5lSsbL0",
+    note: "亲测特别快不卡顿",
+    cat: "魔法",
+    sign: ""
+  },
+  {
+    name: "Now",
+    url: "https://web.noww.cc/#/register?code=aIkqZRcNNow",
+    note: "朋友推荐说还可以，没用过",
+    cat: "魔法",
+    sign: ""
+  },
+  {
+    name: "独角兽",
+    url: "https://live.du9so.net/#/register?code=AeXc4TFn",
+    note: "不限时套餐便宜但是慢慢的",
+    cat: "魔法",
+    sign: ""
   }
 ];
