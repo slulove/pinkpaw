@@ -234,8 +234,9 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 <script>
 const DATA = (typeof PAW_DATA !== "undefined" ? PAW_DATA : []);
 const CATS = [
-  {key:"付费", desc:"要花钱的"},
-  {key:"公益", desc:"白给的"}
+  {key:"付费", label:"付费站", desc:"要花钱的"},
+  {key:"公益", label:"公益站", desc:"白给的"},
+  {key:"魔法", label:"🔮 魔法", desc:"通往世界"}
 ];
 const SUBS = ["全部","可签到","不可签到"];
 
@@ -260,13 +261,19 @@ function renderCats(){
     const n=DATA.filter(d=>d.cat===c.key).length;
     const el=document.createElement("div");
     el.className="cat"+(c.key===curCat?" on":"");
-    el.innerHTML=esc(c.key)+`站<small>${esc(c.desc)} · ${n}</small>`;
+    const nameLabel = c.label || (esc(c.key) + "站");
+    el.innerHTML=`${nameLabel}<small>${esc(c.desc)} · ${n}</small>`;
     el.onclick=()=>{curCat=c.key;curSub="全部";renderCats();renderSubs();render();};
     $cats.appendChild(el);
   });
 }
 function renderSubs(){
   $subs.innerHTML="";
+  if(curCat === "魔法"){
+    $subs.style.display = "none";
+    return;
+  }
+  $subs.style.display = "flex";
   SUBS.forEach(s=>{
     const el=document.createElement("div");
     el.className="sub-tag"+(s===curSub?" on":"");
@@ -293,7 +300,8 @@ function render(){
     a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";
     const chips=[];
     if(d.sign) chips.push(`<span class="chip sign">${esc(d.sign)}</span>`);
-    chips.push(`<span class="chip">${esc(d.cat)}站</span>`);
+    const catChip = d.cat === "魔法" ? "🔮 魔法" : `${esc(d.cat)}站`;
+    chips.push(`<span class="chip">${catChip}</span>`);
     a.innerHTML=`<div class="name">${esc(d.name)}<span class="arrow">↗</span></div>
       <div class="note">${esc(d.note)||"&nbsp;"}</div><div class="foot">${chips.join("")}</div>`;
     $grid.appendChild(a);
