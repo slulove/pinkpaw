@@ -33,7 +33,28 @@ const PAW_DATA = [
     cat: "付费",
     sign: "不可签到"
   },
-  /* ---------- 付费站 · 可签到 ---------- */
+    /* ---------- 付费站 · 可签到 ---------- */
+  {
+    name: "长春叙",
+    url: "https://changchunxu.xyz/sign-up?aff=Vh0c",
+    note: "有试吃",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "梧桐小院",
+    url: "https://api.wtxiaoyuan.top/sign-up?aff=998H",
+    note: "有试吃",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "星期五",
+    url: "https://api.fri5.top/sign-up?aff=XvYh",
+    note: "有试吃",
+    cat: "付费",
+    sign: "可签到"
+  },
   {
     name: "哈基米",
     url: "https://gemai.huchan.cn/sign-up?aff=KU13WMBc",
@@ -297,6 +318,27 @@ const PAW_DATA = [
 
 /* ---------- 付费站 · 不可签到 ---------- */
   {
+    name: "Anx",
+    url: "https://anxforever.shop/sign-up?aff=AQKk",
+    note: "有试吃，有tts模型11labs",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "秋刀鱼",
+    url: "https://qiudaoy.com/sign-up?aff=nmTc",
+    note: "有试吃",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "蕾姆酒馆",
+    url: "https://remu.chat/signup?ref=817CA37C",
+    note: "无试吃",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
     name: "Haoai",
     url: "https://ai.m-hao.com/sign-up?aff=nfC3",
     note: "没试吃，有门槛抽奖",
@@ -557,6 +599,13 @@ const PAW_DATA = [
   },
 
 /* ---------- 公益站 · 可签到 ---------- */
+  {
+    name: "77625公益站",
+    url: "https://ly.77625.xyz/",
+    note: "邀请码：EQV8T9EALN",
+    cat: "公益",
+    sign: "可签到"
+  },
   {
     name: "learn",
     url: "https://free.learn-ai.top/sign-up?aff=i2Cf",
