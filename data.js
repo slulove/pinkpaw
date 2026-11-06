@@ -121,14 +121,14 @@ const PAW_DATA = [
   {
     name: "piu",
     url: "https://piu.du4s.com/sign-up?aff=Vp9v",
-    note: "价格有点浮动，有疯狂星期五活动，充值一百额度可以免费用1h哈基米，活动会变，记得进群",
+    note: "主哈基米，有疯狂星期五活动，详情见公告。价格有点浮动，充值一百额度可免费用1h哈基米，活动会变，记得进群",
     cat: "付费",
     sign: "可签到"
   },
   {
     name: "flowbee",
     url: "https://flowbee.top/sign-up?aff=6VcM",
-    note: "便宜有福利",
+    note: "便宜有福利。近期注册关闭，要注册找站长",
     cat: "付费",
     sign: "可签到"
   },
@@ -142,7 +142,7 @@ const PAW_DATA = [
   {
     name: "牛来",
     url: "http://api.glm.bbs0.cc/sign-up?aff=mVON",
-    note: "小站站",
+    note: "主gpt，有glm和ds，价格便宜",
     cat: "付费",
     sign: "可签到"
   },
@@ -260,8 +260,8 @@ const PAW_DATA = [
   },
   {
     name: "nodex",
-    url: "https://nodexapi.it.com/sign-up?aff=Ugqe",
-    note: "",
+    url: "https://nodexapi.it.com/sign-up?aff=twz7",
+    note: "老站已炸，新站上线，老用户需重新注册",
     cat: "付费",
     sign: "可签到"
   },
@@ -289,7 +289,7 @@ const PAW_DATA = [
   {
     name: "Liminality",
     url: "https://beizhi.dedyn.io/sign-up?aff=ucJF",
-    note: "注册送",
+    note: "注册送，有免费模型，签到送得多",
     cat: "付费",
     sign: "可签到"
   },
@@ -316,7 +316,35 @@ const PAW_DATA = [
     sign: "可签到"
   },
 
+  {
+    name: "月栖",
+    url: "https://yueqiai.top/sign-up?aff=PXKE",
+    note: "有试吃，需前一天有调用记录才能签到",
+    cat: "付费",
+    sign: "可签到"
+  },
+  {
+    name: "keke",
+    url: "https://api.kekeaitit.com/sign-up?aff=5ByY",
+    note: "主营克，站内公告说绝不掺水。有试吃",
+    cat: "付费",
+    sign: "可签到"
+  },
 /* ---------- 付费站 · 不可签到 ---------- */
+  {
+    name: "好朋友",
+    url: "https://haopengyouapi.online/sign-up?aff=5piq",
+    note: "注册送1.5，无签到",
+    cat: "付费",
+    sign: "不可签到"
+  },
+  {
+    name: "大米饭",
+    url: "https://damifan.xyz/sign-up?aff=rwL0",
+    note: "有试吃，无签到",
+    cat: "付费",
+    sign: "不可签到"
+  },
   {
     name: "Anx",
     url: "https://anxforever.shop/sign-up?aff=AQKk",
@@ -467,7 +495,7 @@ const PAW_DATA = [
   {
     name: "刺猬",
     url: "https://cc.cwapi.vip/sign-up?aff=FohX",
-    note: "注册送，味道还可以",
+    note: "注册送，贵",
     cat: "付费",
     sign: "不可签到"
   },
@@ -495,7 +523,7 @@ const PAW_DATA = [
   {
     name: "55",
     url: "https://api.55.al/sign-up?aff=XZNx",
-    note: "好吃",
+    note: "站内说不掺水，掺水会退款，活动力度大",
     cat: "付费",
     sign: "不可签到"
   },
@@ -516,7 +544,7 @@ const PAW_DATA = [
   {
     name: "aiportx",
     url: "https://www.aiportx.com/register?aff=KRUPSB39DJV8",
-    note: "味道还可以。群内签到，QQ群311181337",
+    note: "味道还可以。群内签到，签到不定时开启，详情进群，QQ群311181337",
     cat: "付费",
     sign: "可签到"
   },
@@ -544,7 +572,7 @@ const PAW_DATA = [
   {
     name: "基元律动",
     url: "https://tokenrhythm.studio/i/rf_tr_Y2GE7V?share_id=3e484c0d-f5f2-44e0-a2a7-4f6e9742eb36",
-    note: "注册送（实测约66元），实名领18r，兑换码 rf_tr_Y2GE7V",
+    note: "注册送额度，实名领18r，兑换码 rf_tr_Y2GE7V",
     cat: "付费",
     sign: "不可签到"
   },
@@ -665,7 +693,7 @@ const PAW_DATA = [
   {
     name: "Crouter公益站",
     url: "https://crouter.luoying.work/",
-    note: "进群找管理拿邀请码注册，QQ群 916395971",
+    note: "注册送666额度。一次性邀请码 INV-ZA3BFCMPPA-NWWPXAQXFP，注册不了再进群找管理，QQ群 916395971",
     cat: "公益",
     sign: "可签到"
   },
@@ -698,3 +726,27 @@ const PAW_DATA = [
     sign: ""
   }
 ];
+
+/* ==========================================================
+   公告数据 PAW_NOTICES（当前是示例，等宝宝定文案我再替换）
+   放最新的在最上面，页面会按日期自己排。
+   {
+     date    : "2026-11-07",
+     title   : "上新",
+     content : "公告正文"
+   }
+   ========================================================== */
+
+const PAW_NOTICES = [
+  {
+    date: "2026-11-07",
+    title: "上新 · 老站动态",
+    content: "✅ 新增站点\n月栖：有试吃，需前一天有调用记录才能签到。\nkeke：主营克，站内公告说绝不掺水。有试吃，签到疑似有门槛，点了没反应，没进群不知道怎么回事。\n好朋友：注册送1.5，无签到。\n大米饭：有试吃，无签到。\n\n📢 老站动态\nzhexiu：双倍充值 11.4—11.9。\nflowbee：近期注册关闭，要注册找站长。\n基元律动：双倍充值 11.13 截止，叠加优惠券实测 32r 充 100r 额度。\n\n📌 说明已更新\nkeke、55、刺猬、Liminality、Crouter、piu、牛来、aiportx、nodex 的说明都改了，详情点卡片看。\n换邀请码：Crouter（一次性，注册送666额度，注册不了进群找管理）。\n换链接：nodex（老站已炸，老用户需重新注册）。"
+  },
+  {
+    date: "2026-11-03",
+    title: "爪爪上新",
+    content: "爪爪上新：长春叙、梧桐小院、星期五、秋刀鱼、蕾姆酒馆、77625公益站；重点推荐 Anx（有11labs等TTS模型可玩语音）。自用分享自行避雷，打不开请开魔法~"
+  }
+];
+
