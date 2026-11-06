@@ -64,7 +64,11 @@ header{max-width:960px;margin:0 auto 12px;display:flex;align-items:center;justif
   display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);
 }
 .notice-icon{font-size:15px;flex-shrink:0}
-.notice-text{flex:1}
+.notice-text{
+  flex:1;min-width:0;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;
+  overflow:hidden;
+}
 
 #search{
   width:100%;padding:12px 18px;border-radius:16px;border:1.5px solid var(--line);
@@ -171,6 +175,55 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 .copy-btn:active{transform:scale(.94)}
 .copy-btn.copied{background:var(--accent);color:#fff;border-color:var(--accent)}
 
+/* 公告弹窗 */
+.notice-bar{cursor:pointer;transition:border-color .2s,transform .18s;user-select:none}
+.notice-bar:hover{border-color:var(--accent2)}
+.notice-bar:active{transform:scale(.99)}
+.notice-more{
+  flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--accent);
+  display:inline-flex;align-items:center;gap:2px;white-space:nowrap;
+}
+.notice-box{
+  max-width:420px;width:100%;padding:22px 18px 18px;text-align:left;
+}
+.notice-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding-right:26px;margin-bottom:14px;
+}
+.notice-head .h{font-size:17px;font-weight:800;letter-spacing:1px}
+.notice-head .n{font-size:10.5px;color:var(--ink2);letter-spacing:1px}
+.notice-list{
+  max-height:56vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding-right:4px;
+}
+.notice-list::-webkit-scrollbar{width:4px}
+.notice-list::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:99px}
+.notice-item{
+  background:var(--glass-btn);border:1.5px solid var(--line);
+  border-radius:16px;padding:12px 14px;margin-bottom:10px;
+}
+.notice-item:last-child{margin-bottom:0}
+.notice-item .row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.notice-item .d{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.5px;flex-shrink:0}
+.notice-item .t{font-size:13.5px;font-weight:800;color:var(--ink)}
+.notice-item .c{font-size:12.5px;color:var(--ink2);line-height:1.75;word-break:break-word}
+.notice-item .c.clamp{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.notice-item .c .seg{display:block;margin-top:6px}
+.notice-item .c .seg:first-child{margin-top:0}
+.notice-item{cursor:pointer;transition:border-color .2s}
+.notice-item:hover{border-color:var(--accent2)}
+.notice-item .more{
+  font-size:11px;color:var(--accent);font-weight:700;margin-top:6px;
+  display:inline-block;user-select:none;
+}
+.notice-item.new{border-color:var(--accent)}
+.notice-item .dot{
+  font-size:9px;color:#fff;background:var(--accent);border-radius:99px;
+  padding:1px 7px;font-weight:700;flex-shrink:0;
+}
+
 /* 轻提示Toast */
 .toast{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);
@@ -192,9 +245,10 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 
 <div class="wrap">
   <!-- 公告栏 -->
-  <div class="notice-bar">
+  <div class="notice-bar" id="noticeBar">
     <span class="notice-icon">📢</span>
-    <div class="notice-text">爪爪上新：长春叙、梧桐小院、星期五、秋刀鱼、蕾姆酒馆、77625公益站；重点推荐 Anx（有11labs等TTS模型可玩语音）。自用分享自行避雷，打不开请开魔法~</div>
+    <div class="notice-text" id="noticeText">爪爪上新：长春叙、梧桐小院、星期五、秋刀鱼、蕾姆酒馆、77625公益站；重点推荐 Anx（有11labs等TTS模型可玩语音）。自用分享自行避雷，打不开请开魔法~</div>
+    <span class="notice-more" id="noticeMore">公告 ›</span>
   </div>
 
   <div class="cats" id="cats"></div>
@@ -229,6 +283,18 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
 </div>
 
 <div class="toast" id="toast">已复制</div>
+
+<!-- 公告弹窗 -->
+<div class="modal-overlay" id="noticeOverlay">
+  <div class="modal-box notice-box">
+    <button class="modal-close" id="noticeClose">✕</button>
+    <div class="notice-head">
+      <div class="h">📢 爪爪公告</div>
+      <div class="n" id="noticeCount"></div>
+    </div>
+    <div class="notice-list" id="noticeList"></div>
+  </div>
+</div>
 
 <script src="./data.js"></script>
 <script>
@@ -354,6 +420,57 @@ copyBtn.onclick=()=>{
     showToast("复制失败，请手动长按");
   });
 };
+
+// 公告弹窗
+const NOTICES = (typeof PAW_NOTICES !== "undefined" ? PAW_NOTICES : []);
+const noticeBar=document.getElementById("noticeBar");
+const noticeOverlay=document.getElementById("noticeOverlay");
+const noticeClose=document.getElementById("noticeClose");
+const noticeText=document.getElementById("noticeText");
+const noticeList=document.getElementById("noticeList");
+const noticeCount=document.getElementById("noticeCount");
+
+if(NOTICES.length){
+  const top=NOTICES.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)))[0];
+  if(top) noticeText.textContent=`${top.date} ${top.title||"更新"} · 点这里看全文`;
+}
+
+function renderNotices(){
+  noticeList.innerHTML="";
+  const sorted=NOTICES.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  noticeCount.textContent=sorted.length?`共 ${sorted.length} 条`:"";
+  if(!sorted.length){
+    noticeList.innerHTML='<div class="notice-item"><div class="c">还没有公告喵。</div></div>';
+    return;
+  }
+  sorted.forEach((n,i)=>{
+    const el=document.createElement("div");
+    el.className="notice-item"+(i===0?" new":"");
+    const long=String(n.content||"").length>40;
+    const segs=String(n.content||"").split(/\n+/).filter(s=>s.trim()).map(s=>`<span class="seg">${esc(s)}</span>`).join("");
+    el.innerHTML=`<div class="row">
+        <span class="d">${esc(n.date)}</span>
+        <span class="t">${esc(n.title||"更新")}</span>
+        ${i===0?'<span class="dot">NEW</span>':''}
+      </div>
+      <div class="c${long?" clamp":""}">${segs}</div>
+      ${long?'<span class="more">展开全文 ›</span>':''}`;
+    if(long){
+      const body=el.querySelector(".c");
+      const more=el.querySelector(".more");
+      el.onclick=()=>{
+        const open=!body.classList.contains("clamp");
+        body.classList.toggle("clamp",open);
+        more.textContent=open?"展开全文 ›":"收起 ‹";
+      };
+    }
+    noticeList.appendChild(el);
+  });
+}
+
+noticeBar.onclick=()=>{ renderNotices(); noticeOverlay.classList.add("open"); };
+noticeClose.onclick=()=>{ noticeOverlay.classList.remove("open"); };
+noticeOverlay.onclick=(e)=>{ if(e.target===noticeOverlay) noticeOverlay.classList.remove("open"); };
 
 // 返回顶部按钮逻辑
 const backToTop=document.getElementById("backToTop");
