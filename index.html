@@ -296,13 +296,14 @@ footer{max-width:960px;margin:26px auto 0;text-align:center;font-size:11.5px;col
   </div>
 </div>
 
-<script src="./data.js"></script>
+<script src="./data.js?v=20261108-2155"></script>
 <script>
 const DATA = (typeof PAW_DATA !== "undefined" ? PAW_DATA : []);
 const CATS = [
   {key:"付费", label:"付费站", desc:"要花钱的"},
   {key:"公益", label:"公益站", desc:"白给的"},
-  {key:"魔法", label:"🔮 魔法", desc:"通往世界"}
+  {key:"魔法", label:"🔮 魔法", desc:"通往世界"},
+  {key:"实用工具", label:"实用工具", desc:"顺手好用"}
 ];
 const SUBS = ["全部","可签到","不可签到"];
 
@@ -335,7 +336,7 @@ function renderCats(){
 }
 function renderSubs(){
   $subs.innerHTML="";
-  if(curCat === "魔法"){
+  if(curCat === "魔法" || curCat === "实用工具"){ 
     $subs.style.display = "none";
     return;
   }
@@ -354,19 +355,19 @@ function render(){
     const text=(d.name+(d.note||"")+(d.cat||"")+(d.sign||"")).toLowerCase();
     if(kw) return text.includes(kw);
     if(curCat!==(d.cat||"")) return false;
-    if(curSub!=="全部" && (d.sign||"")!==curSub) return false;
+    if(curCat!=="魔法" && curCat!=="实用工具" && curSub!=="全部" && (d.sign||"")!==curSub) return false;
     return true;
   });
   $grid.innerHTML="";
   $empty.style.display=list.length?"none":"block";
-  $count.textContent=list.length?`共 ${list.length} 个站`:"";
+  $count.textContent=list.length?`共 ${list.length} ${kw ? "个站点与工具" : curCat === "实用工具" ? "个工具" : "个站"}`:"";
   list.forEach(d=>{
     const a=document.createElement("a");
     a.className="card";
     a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";
     const chips=[];
     if(d.sign) chips.push(`<span class="chip sign">${esc(d.sign)}</span>`);
-    const catChip = d.cat === "魔法" ? "🔮 魔法" : `${esc(d.cat)}站`;
+    const catChip = d.cat === "魔法" ? "🔮 魔法" : d.cat === "实用工具" ? "实用工具" : `${esc(d.cat)}站`;
     chips.push(`<span class="chip">${catChip}</span>`);
     a.innerHTML=`<div class="name">${esc(d.name)}<span class="arrow">↗</span></div>
       <div class="note">${esc(d.note)||"&nbsp;"}</div><div class="foot">${chips.join("")}</div>`;
