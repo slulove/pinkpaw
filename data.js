@@ -20,6 +20,27 @@
 
 const PAW_DATA = [
   {
+    "name": "eazydata",
+    "url": "https://eazydata.org/sign-up?aff=4Nix",
+    "note": "注册送100额度",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "稳token",
+    "url": "https://wentoken.net/register?aff=FYMQNMGVAGPL",
+    "note": "进群有试吃",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "星枢AI",
+    "url": "https://token.xn--xsqp6uwvq.live/register?aff=ZZQXCK4VNHP5",
+    "note": "注册送30天月卡，签到有门槛",
+    "cat": "付费",
+    "sign": "可签到"
+  },
+  {
     "name": "zhexiu代充",
     "url": "https://acg.77777777ai.com/",
     "note": "plus120，官网直充，进群优惠",
@@ -127,7 +148,7 @@ const PAW_DATA = [
   {
     "name": "flowbee",
     "url": "https://flowbee.top/sign-up?aff=6VcM",
-    "note": "便宜有福利。近期注册关闭，要注册找站长",
+    "note": "便宜有福利。如果注册不了就找站长",
     "cat": "付费",
     "sign": "可签到"
   },
@@ -152,13 +173,7 @@ const PAW_DATA = [
     "cat": "付费",
     "sign": "可签到"
   },
-  {
-    "name": "鹿鹿",
-    "url": "https://nova.cervus.cn/register?aff=w7HN",
-    "note": "",
-    "cat": "付费",
-    "sign": "可签到"
-  },
+
   {
     "name": "passion",
     "url": "https://api.passionapi.com/register?aff=LQFMS6YYDSAX",
@@ -750,6 +765,11 @@ const PAW_DATA = [
 ];
 
 const PAW_NOTICES = [
+  {
+    "date": "2026-11-12",
+    "title": "三站上新 · 站点调整",
+    "content": "新增付费站：eazydata、稳token、星枢AI。\n\neazydata：无签到，注册送100额度。\n稳token：无签到，进群有试吃。\n星枢AI：可签到，注册送30天月卡，签到有门槛。\n\n站点调整：移除「鹿鹿」。\nflowbee 注册提示更新：如果注册不了就找站长。"
+  },
   {
     "date": "2026-11-08",
     "title": "站点与实用工具更新",
