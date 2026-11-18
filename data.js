@@ -20,9 +20,51 @@
 
 const PAW_DATA = [
   {
+    "name": "幸运熊",
+    "url": "http://lucky-bear.asia/sign-up?aff=IT1R",
+    "note": "注册送1.5",
+    "cat": "付费",
+    "sign": "可签到"
+  },
+  {
+    "name": "薯条api",
+    "url": "https://leepdszz.top/sign-up?aff=3pWz",
+    "note": "注册送",
+    "cat": "付费",
+    "sign": "可签到"
+  },
+  {
+    "name": "fox",
+    "url": "https://foxapi.chat/sign-up?aff=vDi1Bc",
+    "note": "无试吃",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "anan",
+    "url": "https://api.waianan.com/sign-up?aff=Txz3",
+    "note": "0.5试吃",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "芋头饭",
+    "url": "https://api.yutou.fun/sign-up?aff=fEhu",
+    "note": "注册送150额度试吃",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
     "name": "eazydata",
     "url": "https://eazydata.org/sign-up?aff=4Nix",
     "note": "注册送100额度",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "zhexiu",
+    "url": "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
+    "note": "进群领15元额度试吃，gpt0.1倍率，Claude支持4.6-5.5,哈基米美味不降智",
     "cat": "付费",
     "sign": "不可签到"
   },
@@ -39,20 +81,6 @@ const PAW_DATA = [
     "note": "注册送30天月卡，签到有门槛",
     "cat": "付费",
     "sign": "可签到"
-  },
-  {
-    "name": "zhexiu代充",
-    "url": "https://acg.77777777ai.com/",
-    "note": "plus120，官网直充，进群优惠",
-    "cat": "付费",
-    "sign": "不可签到"
-  },
-  {
-    "name": "zhexiu",
-    "url": "https://77777777ai.com/register?aff=R7FFPH4YT24Z",
-    "note": "进群领15元额度试吃，gpt0.1倍率，Claude支持4.6-5.5,哈基米美味不降智",
-    "cat": "付费",
-    "sign": "不可签到"
   },
   {
     "name": "长春叙",
@@ -161,7 +189,7 @@ const PAW_DATA = [
   },
   {
     "name": "牛来",
-    "url": "http://api.glm.bbs0.cc/sign-up?aff=mVON",
+    "url": "https://www.newlay.site/sign-up?aff=mVON",
     "note": "主gpt，有glm和ds，价格便宜",
     "cat": "付费",
     "sign": "可签到"
@@ -173,7 +201,6 @@ const PAW_DATA = [
     "cat": "付费",
     "sign": "可签到"
   },
-
   {
     "name": "passion",
     "url": "https://api.passionapi.com/register?aff=LQFMS6YYDSAX",
@@ -304,13 +331,6 @@ const PAW_DATA = [
     "name": "Liminality",
     "url": "https://beizhi.dedyn.io/sign-up?aff=ucJF",
     "note": "注册送，有免费模型，签到送得多",
-    "cat": "付费",
-    "sign": "可签到"
-  },
-  {
-    "name": "gcmod",
-    "url": "https://gcmod.bond/register?aff=vWiR",
-    "note": "注册送",
     "cat": "付费",
     "sign": "可签到"
   },
@@ -637,6 +657,13 @@ const PAW_DATA = [
     "sign": "不可签到"
   },
   {
+    "name": "新疆幻城",
+    "url": "https://api.hcnsec.cn/sign-up?aff=3ZYn",
+    "note": "注册送两万多额度，有签到需答题",
+    "cat": "公益",
+    "sign": "可签到"
+  },
+  {
     "name": "77625公益站",
     "url": "https://ly.77625.xyz/",
     "note": "邀请码：EQV8T9EALN",
@@ -761,10 +788,22 @@ const PAW_DATA = [
     "note": "注册送额度，可用于给机唱歌，通过邀请链接注册可额外获得额度。若邀请链接无法直接跳转至应用，请先在应用商店下载安装，再重新打开本页提供的邀请链接，跳转至海绵音乐完成登录。",
     "cat": "实用工具",
     "sign": ""
+  },
+  {
+    "name": "Via浏览器",
+    "url": "http://viayoo.com/",
+    "note": "一键打包cookie很方便",
+    "cat": "实用工具",
+    "sign": ""
   }
 ];
 
 const PAW_NOTICES = [
+  {
+    "date": "2026-11-18",
+    "title": "五站上新 · 站点清理",
+    "content": "新增付费站\n幸运熊：可签到，注册送1.5。\n薯条api：可签到，注册送。\nfox：无签到，无试吃。\nanan：无签到，0.5试吃。\n芋头饭：无签到，注册送150额度试吃。\n\n新增公益站\n新疆幻城：可签到，注册送两万多额度，签到需答题。\n\n新增实用工具\nVia浏览器：一键打包cookie很方便。\n\n站点清理\n移除「zhexiu代充」「gcmod」。\n\n链接更新\n牛来换新域名，链接已同步。"
+  },
   {
     "date": "2026-11-12",
     "title": "三站上新 · 站点调整",
