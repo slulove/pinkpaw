@@ -77,8 +77,8 @@ const PAW_DATA = [
   },
   {
     "name": "星枢AI",
-    "url": "https://token.xn--xsqp6uwvq.live/register?aff=ZZQXCK4VNHP5",
-    "note": "注册送30天月卡，签到有门槛",
+    "url": "https://token.xn--xsqp6uwvq.live/register?aff=58B6QJ9CZW4C",
+    "note": "签到有门槛",
     "cat": "付费",
     "sign": "可签到"
   },
@@ -809,10 +809,64 @@ const PAW_DATA = [
     "note": "注册送2.1元，内置角色AI可站内聊天",
     "cat": "付费",
     "sign": "不可签到"
+  },
+  {
+    "name": "风辞云",
+    "url": "https://ezch.xydaim.cn/register?aff=2C3JENBJWLVX",
+    "note": "注册送12.5",
+    "cat": "付费",
+    "sign": "可签到"
+  },
+  {
+    "name": "炉边酒馆",
+    "url": "https://pub.elsworld.cn:7100/sign-up?aff=MCxp",
+    "note": "注册送12",
+    "cat": "付费",
+    "sign": "可签到"
+  },
+  {
+    "name": "一枝春",
+    "url": "https://yizhichun.online/register?aff=KYCLNVXSNHLA",
+    "note": "走邀请注册进群送3",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "kevo",
+    "url": "https://ai.xiaowumin.top/sign-up?aff=5eZc",
+    "note": "注册进群送1.1额度",
+    "cat": "付费",
+    "sign": "不可签到"
+  },
+  {
+    "name": "Myapi公益站",
+    "url": "http://free.myaiapi.site:8080/register?aff=BHAN2AVVYKEN",
+    "note": "注册送100，QQ群签到",
+    "cat": "公益",
+    "sign": "可签到"
+  },
+  {
+    "name": "lizi",
+    "url": "https://sub2.liziai.cloud/register?aff=EX7CU5WWGCD8",
+    "note": "注册送50，每次签到送10额度",
+    "cat": "公益",
+    "sign": "可签到"
+  },
+  {
+    "name": "星驰api公益站",
+    "url": "https://xingchiapi.com/register?aff=FLLW23J68HRT",
+    "note": "注册签到送几百额度",
+    "cat": "公益",
+    "sign": "可签到"
   }
 ];
 
 const PAW_NOTICES = [
+  {
+    "date": "2026-11-24",
+    "title": "七站上新 · 站点补充",
+    "content": "本次更新收录 7 处新站点。\n\n新增付费站\n风辞云：注册送12.5。\n炉边酒馆：注册送12。\n一枝春：走邀请注册进群送3。\nkevo：注册进群送1.1额度。\n\n新增公益站\nMyapi公益站：注册送100，QQ群签到。\nlizi：注册送50，每次签到送10额度。\n星驰api公益站：注册签到送几百额度。\n\n站点更新\n星枢AI：邀请链接已更换，说明调整为「签到有门槛」。\n\n自用分享自行避雷，打不开请开魔法~"
+  },
   {
     "date": "2026-11-21",
     "title": "⚠️ 恶劣避雷 · 牛来站长",
